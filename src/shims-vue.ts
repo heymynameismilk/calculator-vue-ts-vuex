@@ -11,3 +11,5 @@ export class VueComponent<Props = {}> extends Vue {
         class?: CSSClass | CSSClass[]
     }
 }
+
+
