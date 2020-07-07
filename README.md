@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # my-project
 
 ## Project setup
