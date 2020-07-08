@@ -8,14 +8,17 @@ export default new Vuex.Store({
         result: '',
         buffer: '',
         loading: false,
+        calculator: {
+            done: false
+        }
     },
     mutations: {
         inputActions(state, value: string) {
 
-            let lastElem = state.result[state.result.length - 1]
-            const symbols = ['+', '-']
-            let result = state.result.split(/([+-])/)
-
+            const lastElem = state.result[state.result.length - 1];
+            const firstElem = state.result[0];
+            const symbols = ['+', '-'];
+            let result = state.result.split(/([+-])/);
             switch (value) {
                 case '=':
                     state.loading = true
@@ -25,6 +28,11 @@ export default new Vuex.Store({
                         await setTimeout(function () {
 
                             state.buffer = state.result
+                            if (symbols.includes(lastElem)) {
+                                result.pop()
+                            } else if (symbols.includes(firstElem)) {
+                                result.splice(0, 2)
+                            }
 
                             let sum = parseInt(<string>result.shift(), 10)
                             while (result.length > 1) {
@@ -43,9 +51,7 @@ export default new Vuex.Store({
                                 }
                             }
                             state.result = `${sum}`
-                            if (symbols.includes(lastElem)) {
-                                state.result = 'Ошибка'
-                            }
+                            state.calculator.done = true
                             state.loading = false
                         }, 2000)
                     } catch (e) {
@@ -62,7 +68,10 @@ export default new Vuex.Store({
                     state.result = ''
                     break;
                 default:
-
+                    if (state.calculator.done) {
+                        state.result = ''
+                        state.calculator.done = false
+                    }
                     if (symbols.includes(value) && symbols.includes(lastElem)) {
                         state.result = state.result.slice(0, -1) + value
                     } else {
