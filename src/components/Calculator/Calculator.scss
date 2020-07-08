@@ -32,29 +32,23 @@
     padding: 12px 17px 16px;
     color: white;
     flex-grow: 1;
-
-    input {
-      background: transparent;
-      border: none;
-      width: 100%;
-      color: white;
-      box-shadow: none;
-      outline: none;
-      pointer-events: none;
-      font-weight: 300;
-      overflow: hidden;
-    }
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
   }
 
   &__buffer {
     font-size: 18px;
     margin-bottom: 8px;
     text-align: right;
+    overflow: hidden;
   }
 
   &__result {
     font-size: 21px;
     text-align: right;
+    overflow: hidden;
+    white-space: nowrap;
   }
 
   &__bottom {
@@ -72,6 +66,15 @@
     grid-template-columns: repeat(3, 1fr);
     grid-gap: 1px;
     margin-right: 0.5px;
+
+    .calculator__button {
+      background-color: #D8D8D8;
+    }
+  }
+
+  &__buttonZero {
+    grid-column-start: 1;
+    grid-column-end: 4;
   }
 
   &__button {
@@ -83,20 +86,6 @@
     box-shadow: none;
     outline: none;
     border: none;
-
-    &--num {
-      background-color: #D8D8D8;
-    }
-
-    &--action {
-      color: white;
-      background-color: #B15E5E;
-    }
-
-    &--zero {
-      grid-column-start: 1;
-      grid-column-end: 4;
-    }
 
     &:focus {
       border: none;
@@ -119,6 +108,10 @@
     grid-gap: 1px;
     grid-template-columns: repeat(1, 1fr);
 
+    .calculator__button {
+      color: white;
+      background-color: #B15E5E;
+    }
   }
 
 }
