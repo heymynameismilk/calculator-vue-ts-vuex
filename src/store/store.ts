@@ -54,7 +54,7 @@ export default new Vuex.Store({
                 }
 
                     calculate().then(function () {
-                        return false
+                        return Promise.resolve();
                     })
                     break;
                 case 'C':
