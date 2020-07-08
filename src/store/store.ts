@@ -19,21 +19,29 @@ export default new Vuex.Store({
             const firstElem = state.result[0];
             const symbols = ['+', '-'];
             let result = state.result.split(/([+-])/);
+            result = result.filter(function (entry) {
+                return entry.trim() != ''
+            })
+
             switch (value) {
                 case '=':
-                    state.loading = true
+
+                    if (symbols.includes(lastElem) || symbols.includes(firstElem)) {
+                        result = result.filter(function (entry) {
+                            return entry.trim() != '+' && entry.trim() != '-'
+                        })
+                    }
+                    if (result.length == 0) {
+                        state.calculator.done = true
+                        state.result = ''
+                        break
+                    }
 
                 async function calculate() {
                     try {
+                        state.loading = true
                         await setTimeout(function () {
-
                             state.buffer = state.result
-                            if (symbols.includes(lastElem)) {
-                                result.pop()
-                            } else if (symbols.includes(firstElem)) {
-                                result.splice(0, 2)
-                            }
-
                             let sum = parseInt(<string>result.shift(), 10)
                             while (result.length > 1) {
                                 let arithmeticSymbol = result.shift();
@@ -77,6 +85,7 @@ export default new Vuex.Store({
                     } else {
                         state.result += value
                     }
+
             }
 
         },
