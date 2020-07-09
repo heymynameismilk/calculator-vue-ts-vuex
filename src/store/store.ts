@@ -25,8 +25,8 @@ export default new Vuex.Store({
 
             switch (value) {
                 case '=':
-
-                    if (result.length == 0) {
+                    console.log(result)
+                    if (result.length == 0 || symbols.includes(result[0])) {
                         state.calculator.done = true
                         state.result = ''
                         break
